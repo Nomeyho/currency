@@ -1,0 +1,27 @@
+{
+  "name": "currency",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy-dev": "sls deploy -s dev",
+    "deploy-prod": "sls deploy -s prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nomeyho/currency.git"
+  },
+  "author": "Nomeyho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nomeyho/currency/issues"
+  },
+  "homepage": "https://github.com/Nomeyho/currency#readme",
+  "devDependencies": {
+    "serverless": "^1.41.1",
+    "serverless-dotenv-plugin": "^2.0.1"
+  },
+  "dependencies": {
+    "got": "^9.6.0"
+  }
+}
