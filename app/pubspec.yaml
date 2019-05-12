@@ -1,0 +1,32 @@
+name: app
+description: Universal currency converter
+
+version: 1.5.4-hotfix.2
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^0.1.2
+  path_provider: ^0.4.1
+  http: ^0.12.0+2
+  currency_icons: 0.0.2
+  provider: ^2.0.0+1
+  flutter_masked_text: ^0.8.0
+  intl: ^0.15.8
+  intl_translation: ^0.17.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - 'assets/default_currencies.json'
+    - 'assets/en.json'
+    - 'assets/fr.json'

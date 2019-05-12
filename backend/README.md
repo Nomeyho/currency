@@ -30,3 +30,6 @@ npm run deploy-dev
 ## Roadmap
 * Add support for crypto-currencies
 * Save historical data (e.g. `/year/month/day.json`)
+
+## Resources
+https://gist.github.com/Fluidbyte/2973986
