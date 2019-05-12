@@ -15,6 +15,7 @@ class CurrencyTile extends StatelessWidget {
 
   _buildIcon(code) {
     try {
+      // TODO: no exception-based logic
       return Image.asset('icons/currency/${code.toLowerCase()}.png', package: 'currency_icons');
     } catch (e) {
       return null;

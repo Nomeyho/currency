@@ -1,3 +1,4 @@
+import 'package:app/i18n/app_i18n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,8 @@ class SearchInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppI18n.of(context);
+
     return TextField(
         autofocus: true,
         onChanged: onSearch,
@@ -18,7 +21,7 @@ class SearchInput extends StatelessWidget {
         ),
         decoration: new InputDecoration(
           suffixIcon: Icon(Icons.search),
-          hintText: 'Search',
+          hintText: locale.text('search_input.search'),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 12,

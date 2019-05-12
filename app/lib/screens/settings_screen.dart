@@ -1,6 +1,9 @@
+import 'package:app/i18n/app_i18n.dart';
+import 'package:app/state/app_state.dart';
 import 'package:app/widgets/custom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // TODO
 class SettingsScreen extends StatelessWidget {
@@ -8,9 +11,12 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<AppState>(context);
+    final locale = AppI18n.of(context);
+
     return Scaffold(
       appBar: customNavBar(
-        title: 'Settings',
+        title: locale.text('settings_screen.title'),
         showSettings: false,
         context: context,
       ),
@@ -22,12 +28,26 @@ class SettingsScreen extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   ListTile(
-                    title: Text('Lang', style: TextStyle(color: Colors.black)),
-                    trailing: Text('FR', style: TextStyle(color: Colors.black)),
+                    title: Text(
+                      locale.text('settings_screen.lang'),
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    trailing: Text(state.locale.languageCode, style: TextStyle(color: Colors.black)),
+                    onTap: () {
+                      // TODO
+                      if (state.locale.languageCode == 'fr') {
+                        state.locale = Locale('en');
+                      } else {
+                        state.locale = Locale('fr');
+                      }
+                    },
                   ),
                   Divider(),
                   ListTile(
-                    title: Text('Theme', style: TextStyle(color: Colors.black)),
+                    title: Text(
+                      locale.text('settings_screen.theme'),
+                      style: TextStyle(color: Colors.black),
+                    ),
                     trailing: Text('light', style: TextStyle(color: Colors.black)),
                   ),
                 ],
@@ -35,7 +55,10 @@ class SettingsScreen extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.all(30),
-              child: Text('version', style: TextStyle(color: Colors.black)),
+              child: Text(
+                locale.text('settings_screen.version'),
+                style: TextStyle(color: Colors.black),
+              ),
             )
           ],
         ),

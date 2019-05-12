@@ -14,5 +14,13 @@ class AppI18n {
 
   Locale get locale => _locale;
 
-  String get title => _translation['title'];
+  text(String key) {
+    final text = _translation[key];
+
+    if (text == null) {
+      print('** Key $key not found **');
+    }
+
+    return text;
+  }
 }

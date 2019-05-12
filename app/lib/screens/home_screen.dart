@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: customNavBar(
-        title: locale.title,
+        title: locale.text('home_screen.title'),
         showSettings: true,
         context: context,
       ),

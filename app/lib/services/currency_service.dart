@@ -27,6 +27,6 @@ class CurrencyService {
       throw Exception("Failed to fetch remote currencies");
     }
 
-    return Currencies.fromJson(json.decode(response.body));
+    return Currencies.fromJson(jsonDecode(response.body));
   }
 }

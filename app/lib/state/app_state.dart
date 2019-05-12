@@ -7,10 +7,18 @@ class AppState with ChangeNotifier {
   final _ratesService = CurrencyService();
 
   /// state
+  Locale _locale;
   List<Currency> _currencies = [];
   Currency _from;
   Currency _to;
   bool _loading = true;
+
+  Locale get locale => _locale;
+
+  set locale(Locale locale) {
+    _locale = locale;
+    notifyListeners();
+  }
 
   List<Currency> get currencies => _currencies;
 

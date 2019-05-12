@@ -1,3 +1,11 @@
 {
-  "title": "Mon titre en français"
+  "home_screen.title": "Convertisseur",
+
+  "search_input.search": "Rechercher",
+  "settings_screen.title": "Paramètres",
+  "settings_screen.lang": "Langue",
+  "settings_screen.theme": "Thème",
+  "settings_screen.version": "Version",
+
+  "currency_selector_screen.title": "Devise"
 }

@@ -1,3 +1,11 @@
 {
-  "title": "My English title"
+  "home_screen.title": "Converter",
+
+  "search_input.search": "Search",
+  "settings_screen.title": "Settings",
+  "settings_screen.lang": "Lang",
+  "settings_screen.theme": "Theme",
+  "settings_screen.version": "Version",
+
+  "currency_selector_screen.title": "Currency"
 }

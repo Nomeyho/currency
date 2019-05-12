@@ -9,26 +9,21 @@ import 'i18n/languages.dart';
 import 'state/app_state.dart';
 
 class App extends StatelessWidget {
-  final AppState state;
-  final AppI18nDelegate appI18nDelegate;
-
-  App(this.state, this.appI18nDelegate);
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AppState>(
-      builder: (context) => state,
-      child: new MaterialApp(
-        title: 'Currency',
-        theme: new ThemeData(),
-        home: new HomeScreen(),
-        localizationsDelegates: [
-          appI18nDelegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: languages.map((l) => Locale(l, '')),
-      ),
+    final state = Provider.of<AppState>(context);
+
+    return new MaterialApp(
+      title: 'Currency',
+      theme: new ThemeData(),
+      home: new HomeScreen(),
+      locale: state.locale,
+      localizationsDelegates: [
+        AppI18nDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: languages.map((l) => Locale(l, '')),
     );
   }
 }

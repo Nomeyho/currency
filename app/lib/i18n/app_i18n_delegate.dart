@@ -13,9 +13,12 @@ class AppI18nDelegate extends LocalizationsDelegate<AppI18n> {
 
   @override
   Future<AppI18n> load(Locale locale) async {
+    print('Loading ${locale.languageCode} locale');
+
     String string = await loadJsonFromAsset(locale.languageCode);
     Map<String, dynamic> json = jsonDecode(string);
     Map<String, String> translation = convertValueToString(json);
+
     return AppI18n(locale, translation);
   }
 

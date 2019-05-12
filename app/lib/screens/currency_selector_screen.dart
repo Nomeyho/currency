@@ -1,3 +1,4 @@
+import 'package:app/i18n/app_i18n.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/widgets/currency_tile.dart';
 import 'package:app/widgets/custom_nav_bar.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // TODO from != to in list
-// TODO hilight selected
+// TODO highlight selected
 class CurrencySelectorScreen extends StatefulWidget {
   final onSelect;
 
@@ -29,11 +30,12 @@ class _CurrencySelectorState extends State<CurrencySelectorScreen> {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<AppState>(context);
+    final locale = AppI18n.of(context);
     final currencies = state.filteredCurrencies(_filter);
 
     return Scaffold(
       appBar: customNavBar(
-        title: 'Select',
+        title: locale.text('currency_selector_screen.title'),
         showSettings: false,
         context: context,
       ),
