@@ -7,7 +7,7 @@ import 'app.dart';
 void main() async {
   final state = AppState();
   state.loadCurrencies().then((_) => print('Currencies loaded'));
-  state.locale = Locale('en');
+  await state.loadLocale();
 
   runApp(ChangeNotifierProvider<AppState>(
     builder: (context) => state,

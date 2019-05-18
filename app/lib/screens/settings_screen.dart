@@ -32,13 +32,24 @@ class SettingsScreen extends StatelessWidget {
                       locale.text('settings_screen.lang'),
                       style: TextStyle(color: Colors.black),
                     ),
-                    trailing: Text(state.locale.languageCode, style: TextStyle(color: Colors.black)),
+                    trailing: DropdownButton<String>(
+                      value: 'One',
+                      onChanged: (String newValue) {
+                        print(newValue);
+                      },
+                      items: <String>['One', 'Two', 'Free', 'Four'].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                     onTap: () {
                       // TODO
                       if (state.locale.languageCode == 'fr') {
-                        state.locale = Locale('en');
+                        state.setLocale('en');
                       } else {
-                        state.locale = Locale('fr');
+                        state.setLocale('fr');
                       }
                     },
                   ),
