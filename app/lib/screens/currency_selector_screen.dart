@@ -1,7 +1,6 @@
 import 'package:app/i18n/app_i18n.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/widgets/currency_tile.dart';
-import 'package:app/widgets/custom_nav_bar.dart';
 import 'package:app/widgets/search_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,10 +33,10 @@ class _CurrencySelectorState extends State<CurrencySelectorScreen> {
     final currencies = state.filteredCurrencies(_filter);
 
     return Scaffold(
-      appBar: customNavBar(
-        title: locale.text('currency_selector_screen.title'),
-        showSettings: false,
-        context: context,
+      appBar: AppBar(
+        title: Text(locale.text('currency_selector_screen.title')),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SafeArea(
         child: Container(
@@ -53,6 +52,10 @@ class _CurrencySelectorState extends State<CurrencySelectorScreen> {
             child: Column(
               children: <Widget>[
                 Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+                    color: Theme.of(context).primaryColor,
+                  ),
                   padding: EdgeInsets.symmetric(
                     horizontal: 24.0,
                     vertical: 16,

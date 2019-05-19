@@ -1,33 +1,15 @@
 import 'package:app/models/currency.dart';
-import 'package:app/models/currencies.dart';
 import 'package:app/services/currency_service.dart';
-import 'package:app/services/preference_service.dart';
 import 'package:flutter/material.dart';
 
 class AppState with ChangeNotifier {
   final _ratesService = CurrencyService();
-  final _preferenceService = PreferenceService();
 
   /// state
-  Locale _locale;
   List<Currency> _currencies = [];
   Currency _from;
   Currency _to;
   bool _loading = true;
-
-  Locale get locale => _locale;
-
-  Future<void> setLocale(String lang) async {
-    _locale = Locale(lang);
-    _preferenceService.setLang(lang);
-    notifyListeners();
-  }
-
-  Future<void> loadLocale() async {
-    final lang = await _preferenceService.getLang() ?? 'en';
-    _locale = Locale(lang);
-    notifyListeners();
-  }
 
   List<Currency> get currencies => _currencies;
 

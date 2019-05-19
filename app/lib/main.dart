@@ -5,12 +5,12 @@ import 'package:provider/provider.dart';
 import 'app.dart';
 
 void main() async {
-  final state = AppState();
-  state.loadCurrencies().then((_) => print('Currencies loaded'));
-  await state.loadLocale();
-
   runApp(ChangeNotifierProvider<AppState>(
-    builder: (context) => state,
+    builder: (context) {
+      final state = AppState();
+      state.loadCurrencies().then((_) => print('Currencies loaded'));
+      return state;
+    },
     child: App(),
   ));
 }

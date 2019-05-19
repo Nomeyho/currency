@@ -2,7 +2,6 @@ import 'package:app/i18n/app_i18n.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/widgets/centered_loader.dart';
 import 'package:app/widgets/currency_input.dart';
-import 'package:app/widgets/custom_nav_bar.dart';
 import 'package:app/widgets/rate_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
           label: state.from.code,
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
           color: Colors.white,
         ),
       ),
@@ -88,14 +87,14 @@ class _HomeScreenState extends State<HomeScreen> {
     final locale = AppI18n.of(context);
 
     return Scaffold(
-      appBar: customNavBar(
-        title: locale.text('home_screen.title'),
-        showSettings: true,
-        context: context,
+      appBar: AppBar(
+        title: Text(locale.text('home_screen.title')),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SafeArea(
         child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
+            color: Theme.of(context).primaryColor,
             child: state.loading
                 ? CenteredLoader()
                 : Stack(
