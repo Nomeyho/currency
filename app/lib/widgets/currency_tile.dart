@@ -13,19 +13,24 @@ class CurrencyTile extends StatelessWidget {
   final Currency currency;
   final Function onSelect;
 
-  _buildIcon(code) {
+  _buildIcon(currency) {
     try {
-      // TODO: no exception-based logic
-      return Image.asset('icons/currency/${code.toLowerCase()}.png', package: 'currency_icons');
+      return CircleAvatar(
+        backgroundImage: AssetImage(
+          'icons/currency/${currency.code.toLowerCase()}.png',
+          package: 'currency_icons',
+        ),
+        backgroundColor: Colors.white,
+      );
     } catch (e) {
-      return null;
+      return CircleAvatar(backgroundColor: Colors.white);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<AppState>(context);
-    bool disabled = currency == state.from || currency == state.to;
+    final bool disabled = currency == state.from || currency == state.to;
 
     return ListTile(
       onTap: () {
@@ -33,8 +38,9 @@ class CurrencyTile extends StatelessWidget {
           onSelect(currency);
         }
       },
-      leading: _buildIcon(currency.code),
-      title: Text(currency.name, style: TextStyle(color: disabled ? Colors.red : Colors.grey)),
+      leading: _buildIcon(currency),
+      title: Text(currency.name,
+          style: TextStyle(color: disabled ? Colors.red : Colors.grey)),
       subtitle: Text(currency.code, style: TextStyle(color: Colors.grey)),
       trailing: Text(currency.symbol, style: TextStyle(color: Colors.grey)),
     );

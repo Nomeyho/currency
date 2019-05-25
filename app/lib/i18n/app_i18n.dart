@@ -14,7 +14,7 @@ class AppI18n {
 
   Locale get locale => _locale;
 
-  text(String key) {
+  String text(String key) {
     final text = _translation[key];
 
     if (text == null) {

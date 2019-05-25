@@ -1,7 +1,9 @@
 import 'package:app/i18n/app_i18n.dart';
 import 'package:app/state/app_state.dart';
+import 'package:app/utils/ago.dart';
 import 'package:app/widgets/centered_loader.dart';
 import 'package:app/widgets/currency_input.dart';
+import 'package:app/widgets/header.dart';
 import 'package:app/widgets/rate_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +20,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _focusNode1 = new FocusNode();
   final _focusNode2 = new FocusNode();
-  final _inputController1 = new MoneyMaskedTextController(precision: 2, thousandSeparator: ' ');
-  final _inputController2 = new MoneyMaskedTextController(precision: 2, thousandSeparator: ' ');
+  final _inputController1 =
+      new MoneyMaskedTextController(precision: 2, thousandSeparator: ' ');
+  final _inputController2 =
+      new MoneyMaskedTextController(precision: 2, thousandSeparator: ' ');
 
   @override
   void initState() {
@@ -43,40 +47,36 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _buildCurrencyInput1(AppState state) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(20.0),
-        child: CurrencyInput(
-          controller: _inputController1,
-          focusNode: _focusNode1,
-          onSelect: (currency) {
-            state.from = currency;
-            Navigator.pop(context);
-          },
-          label: state.from.code,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
-          color: Colors.white,
-        ),
+    return Container(
+      padding: EdgeInsets.all(20.0),
+      child: CurrencyInput(
+        controller: _inputController1,
+        focusNode: _focusNode1,
+        onSelect: (currency) {
+          state.from = currency;
+          Navigator.pop(context);
+        },
+        label: state.from.code,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+        color: Colors.white,
       ),
     );
   }
 
   _buildCurrencyInput2(AppState state) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(20.0),
-        color: Colors.grey[100],
-        child: CurrencyInput(
-          controller: _inputController2,
-          focusNode: _focusNode2,
-          onSelect: (currency) {
-            state.to = currency;
-            Navigator.pop(context);
-          },
-          label: state.to.code,
-        ),
+    return Container(
+      padding: EdgeInsets.all(20.0),
+      color: Colors.grey[100],
+      child: CurrencyInput(
+        controller: _inputController2,
+        focusNode: _focusNode2,
+        onSelect: (currency) {
+          state.to = currency;
+          Navigator.pop(context);
+        },
+        label: state.to.code,
       ),
     );
   }
@@ -88,26 +88,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(locale.text('home_screen.title')),
-        centerTitle: true,
+        title: Text(''),
         elevation: 0,
       ),
-      body: SafeArea(
-        child: Container(
-            color: Theme.of(context).primaryColor,
-            child: state.loading
-                ? CenteredLoader()
-                : Stack(
-                    children: <Widget>[
-                      Column(
+      body: Container(
+        color: Theme.of(context).primaryColor,
+        child: Column(
+          children: <Widget>[
+            Header(
+              title: locale.text('home_screen.title'),
+              subtitle: ago(state.date, locale),
+            ),
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 18),
+                child: state.loading
+                    ? CenteredLoader()
+                    : Stack(
                         children: <Widget>[
-                          _buildCurrencyInput1(state),
-                          _buildCurrencyInput2(state),
+                          Column(
+                            children: <Widget>[
+                              Expanded(child: _buildCurrencyInput1(state)),
+                              Expanded(child: _buildCurrencyInput2(state)),
+                            ],
+                          ),
+                          RateIndicator(onPress: state.invert)
                         ],
                       ),
-                      RateIndicator()
-                    ],
-                  )),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -11,30 +11,33 @@ class SearchInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = AppI18n.of(context);
 
-    return TextField(
-        autofocus: true,
-        onChanged: onSearch,
-        cursorColor: Colors.black,
-        style: TextStyle(
-          color: Colors.blue,
-          fontSize: 16,
-        ),
-        decoration: new InputDecoration(
-          suffixIcon: Icon(Icons.search),
-          hintText: locale.text('search_input.search'),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 12,
+    return Container(
+      margin: EdgeInsets.all(12),
+      child: TextField(
+          autofocus: true,
+          onChanged: onSearch,
+          cursorColor: Colors.black,
+          style: TextStyle(
+            color: Colors.blue,
+            fontSize: 16,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: new BorderSide(),
-            borderRadius: BorderRadius.all(Radius.circular(24.0)),
-          ),
-          border: OutlineInputBorder(
-            borderSide: new BorderSide(),
-            borderRadius: BorderRadius.all(Radius.circular(24.0)),
-          ),
-          alignLabelWithHint: false,
-        ));
+          decoration: new InputDecoration(
+            suffixIcon: Icon(Icons.search),
+            hintText: locale.text('search_input.search'),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 12,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: new BorderSide(),
+              borderRadius: BorderRadius.all(Radius.circular(24)),
+            ),
+            border: OutlineInputBorder(
+              borderSide: new BorderSide(),
+              borderRadius: BorderRadius.all(Radius.circular(24)),
+            ),
+            alignLabelWithHint: false,
+          )),
+    );
   }
 }

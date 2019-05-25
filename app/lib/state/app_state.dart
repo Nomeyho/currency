@@ -7,6 +7,7 @@ class AppState with ChangeNotifier {
 
   /// state
   List<Currency> _currencies = [];
+  DateTime _date;
   Currency _from;
   Currency _to;
   bool _loading = true;
@@ -24,17 +25,28 @@ class AppState with ChangeNotifier {
     try {
       final data = await _ratesService.getRemoteCurrencies();
       _currencies = data.currencies;
+      _date = data.date;
     } catch (e) {
       print(e);
       final data = await _ratesService.getLocalCurrencies();
       _currencies = data.currencies;
+      _date = data.date;
     }
 
-    _from = _currencies[0];
-    _to = _currencies[1];
+    _from = _currencies.firstWhere((c) => c.code == 'EUR'); // TODO use preferences to save last two selected
+    _to = _currencies.firstWhere((c) => c.code == 'USD');
     _loading = false;
     notifyListeners();
   }
+
+  void invert() {
+    final tmp = from;
+    _from = _to;
+    _to = tmp;
+    notifyListeners();
+  }
+
+  DateTime get date => _date;
 
   Currency get from => _from;
 

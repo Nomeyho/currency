@@ -7,6 +7,9 @@ import 'i18n/app_i18n_delegate.dart';
 import 'i18n/languages.dart';
 
 // TODO: loading currency issue
+// TODO refactor style
+// TODO splash screen
+
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

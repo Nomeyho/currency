@@ -1,5 +1,8 @@
 {
   "home_screen.title": "Convertisseur",
+  "home_screen.updated-today": "Mis à jour aujourd'hui",
+  "home_screen.updated-day": "Mis à jour il y a 1 jour",
+  "home_screen.updated-days": "Mis à jour il y a % jours",
 
   "search_input.search": "Rechercher",
   "settings_screen.title": "Paramètres",

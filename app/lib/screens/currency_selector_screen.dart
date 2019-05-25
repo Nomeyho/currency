@@ -1,6 +1,8 @@
 import 'package:app/i18n/app_i18n.dart';
 import 'package:app/state/app_state.dart';
 import 'package:app/widgets/currency_tile.dart';
+import 'package:app/widgets/custom_app_bar.dart';
+import 'package:app/widgets/header.dart';
 import 'package:app/widgets/search_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,50 +35,46 @@ class _CurrencySelectorState extends State<CurrencySelectorScreen> {
     final currencies = state.filteredCurrencies(_filter);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(locale.text('currency_selector_screen.title')),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: SafeArea(
-        child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 8.0),
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 8.0,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
-              color: Colors.white,
-            ),
-            child: Column(
-              children: <Widget>[
-                Container(
+        appBar: AppBar(
+          title: Text(''),
+          elevation: 0,
+        ),
+        body: Container(
+          color: Theme.of(context).primaryColor,
+          child: Column(
+            children: <Widget>[
+              Header(title: locale.text('currency_selector_screen.title')),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 18),
+                  padding: EdgeInsets.fromLTRB(16, 12, 16, 0),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
-                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
+                    color: Colors.white,
                   ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24.0,
-                    vertical: 16,
+                  child: Column(
+                    children: <Widget>[
+                      SearchInput(onSearch: _onSearch),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: currencies.length,
+                          itemBuilder: (context, index) {
+                            final currency = currencies[index];
+                            return CurrencyTile(
+                              currency: currency,
+                              onSelect: widget.onSelect,
+                            );
+                          },
+                        ),
+                      )
+                    ],
                   ),
-                  child: SearchInput(onSearch: _onSearch),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: currencies.length,
-                    itemBuilder: (context, index) {
-                      final currency = currencies[index];
-                      return CurrencyTile(
-                        currency: currency,
-                        onSelect: widget.onSelect,
-                      );
-                    },
-                  ),
-                )
-              ],
-            )),
-      ),
-    );
+              )
+            ],
+          ),
+        ));
   }
 }

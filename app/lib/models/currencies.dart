@@ -1,18 +1,18 @@
 import 'currency.dart';
 
 class Currencies {
-  String date;
+  DateTime date;
   List<Currency> currencies;
 
   Currencies();
 
   Currencies.fromJson(Map<String, dynamic> json) {
-    date = json['date'];
+    date = DateTime.parse(json['date']);
     currencies = json['currencies'].map((c) => Currency.fromJson(c)).toList().cast<Currency>();
   }
 
   Map<String, dynamic> toJson() => {
-        'date': date,
+        'date': '${date.year}-${date.month}-${date.day}',
         'currencies': currencies.map((c) => c.toJson()).toList(),
       };
 }
