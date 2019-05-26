@@ -1,7 +1,6 @@
 import 'package:app/i18n/app_i18n.dart';
 import 'package:app/models/currency.dart';
 import 'package:app/state/app_state.dart';
-import 'package:app/utils/sort_currencies.dart';
 import 'package:app/widgets/currency_tile.dart';
 import 'package:app/widgets/header.dart';
 import 'package:app/widgets/search_input.dart';
@@ -27,16 +26,28 @@ class _CurrencySelectorState extends State<CurrencySelectorScreen> {
     });
   }
 
-  _isLastFavorite(List<Currency> currencies, List<String> favorites, int index) {
-    final currency = currencies[index];
-
-    if(favorites.contains(currency.code)) {
+  _isLastFavorite(List<Currency> currencies, int index) {
+    if(currencies[index].isFavorite) {
       if(index + 1 < currencies.length) {
-        return !favorites.contains(currencies[index + 1].code);
+        // next is not a favorite
+        return currencies[index].isFavorite && !currencies[index + 1].isFavorite;
+      } else {
+        // last item, no next
+        return true;
       }
     }
-
     return false;
+  }
+
+  _buildSeparator(List<Currency> currencies, int index, ThemeData theme) {
+    if (_isLastFavorite(currencies, index)) {
+      return Container(
+        color: theme.canvasColor,
+        child: Divider(),
+      );
+    } else {
+      return Container();
+    }
   }
 
   @override
@@ -44,10 +55,7 @@ class _CurrencySelectorState extends State<CurrencySelectorScreen> {
     final state = Provider.of<AppState>(context);
     final locale = AppI18n.of(context);
     final theme = Theme.of(context);
-    final currencies = state.filteredCurrencies(_filter);
-    final favorites = state.favorites;
-
-    sortCurrencies(currencies, favorites);
+    final currencies = state.getCurrencies(_filter);
 
     return Scaffold(
         appBar: AppBar(
@@ -55,7 +63,9 @@ class _CurrencySelectorState extends State<CurrencySelectorScreen> {
           elevation: 0,
         ),
         body: Container(
-          color: Theme.of(context).primaryColor,
+          color: Theme
+              .of(context)
+              .primaryColor,
           child: Column(
             children: <Widget>[
               Header(title: locale.text('currency_selector_screen.title')),
@@ -75,24 +85,17 @@ class _CurrencySelectorState extends State<CurrencySelectorScreen> {
                         child: ListView.separated(
                           itemCount: currencies.length,
                           separatorBuilder: (context, index) {
-                            if (_isLastFavorite(currencies, favorites, index)) {
-                              return Container(
-                                color: theme.canvasColor,
-                                child: Divider(),
-                              );
-                            } else {
-                              return Container();
-                            }
+                            return _buildSeparator(currencies, index, theme);
                           },
                           itemBuilder: (context, index) {
                             final currency = currencies[index];
                             return CurrencyTile(
-                                currency: currency,
-                                onSelect: widget.onSelect,
-                                favorite: favorites.contains(currency.code));
+                              currency: currency,
+                              onSelect: widget.onSelect,
+                            );
                           },
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

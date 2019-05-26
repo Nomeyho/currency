@@ -1,46 +1,58 @@
+import 'package:app/models/favorites.dart';
+import 'package:app/models/currencies.dart';
 import 'package:app/models/currency.dart';
 import 'package:app/services/currency_service.dart';
-import 'package:app/services/preferences_service.dart';
+import 'package:app/services/favorites_service.dart';
 import 'package:flutter/material.dart';
 
 class AppState with ChangeNotifier {
   final _ratesService = CurrencyService();
-  final _preferencesService = new PreferencesService();
+  final _favoritesService = FavoritesService();
 
   /// state
-  List<Currency> _currencies = [];
-  List<String> _favorites = [];
-  DateTime _date;
+  Currencies _currencies = Currencies();
+  Favorites _favorites = Favorites.empty();
   Currency _from;
   Currency _to;
   bool _loading = true;
 
-  List<Currency> get currencies => _currencies;
+  List<Currency> get currencies => _currencies.currencies;
 
-  List<Currency> filteredCurrencies(String filter) {
-    return currencies.where((c) => c.match(filter)).toList();
+  List<Currency> getCurrencies(String filter) {
+    final List<Currency> currencies = [];
+
+    // favorites
+    currencies.addAll(_favorites
+        .toList()
+        .map((code) => _currencies.find(code))
+        .where((c) => c.match(filter))
+        .map((c) => c.setIsFavorite(true))
+        .toList());
+
+    // non-favorites
+    currencies.addAll(_currencies.currencies
+        .where((c) => !_favorites.contains(c.code))
+        .where((c) => c.match(filter))
+        .map((c) => c.setIsFavorite(false))
+        .toList());
+
+    return currencies;
   }
-
-  List<String> get favorites => _favorites;
 
   Future<void> loadCurrencies() async {
     _loading = true;
     notifyListeners();
 
     try {
-      final data = await _ratesService.getRemoteCurrencies();
-      _currencies = data.currencies;
-      _date = data.date;
+      _currencies = await _ratesService.getRemoteCurrencies();
     } catch (e) {
       print(e);
-      final data = await _ratesService.getLocalCurrencies();
-      _currencies = data.currencies;
-      _date = data.date;
+      _currencies = await _ratesService.getLocalCurrencies();
     }
 
-    _favorites = await _preferencesService.getFavorites();
-    _from = _currencies.firstWhere((c) => c.code == 'EUR'); // TODO use preferences to save last two selected
-    _to = _currencies.firstWhere((c) => c.code == 'USD');
+    _favorites = await _favoritesService.getFavorites();
+    _from = currencies.firstWhere((c) => c.code == 'EUR'); // TODO use preferences to save last two selected
+    _to = currencies.firstWhere((c) => c.code == 'USD');
     _loading = false;
     notifyListeners();
   }
@@ -52,13 +64,14 @@ class AppState with ChangeNotifier {
     notifyListeners();
   }
 
-  DateTime get date => _date;
+  DateTime get date => _currencies.date;
 
   Currency get from => _from;
 
   set from(Currency from) {
     _from = from;
-    _preferencesService.addToFavorites(from.code).then((f) => _favorites = f);
+    _favorites.add(from.code);
+    _favoritesService.saveFavorites(_favorites);
     notifyListeners();
   }
 
@@ -66,7 +79,8 @@ class AppState with ChangeNotifier {
 
   set to(Currency to) {
     _to = to;
-    _preferencesService.addToFavorites(to.code).then((f) => _favorites = f);
+    _favorites.add(to.code);
+    _favoritesService.saveFavorites(_favorites);
     notifyListeners();
   }
 

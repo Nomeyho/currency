@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  String title;
-  String subtitle;
+  final String title;
+  final String subtitle;
 
   Header({ @required this.title, this.subtitle = '' });
 

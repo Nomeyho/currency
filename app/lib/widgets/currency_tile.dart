@@ -10,12 +10,10 @@ class CurrencyTile extends StatelessWidget {
   CurrencyTile({
     @required this.currency,
     @required this.onSelect,
-    @required this.favorite,
   });
 
   final Currency currency;
   final Function onSelect;
-  final bool favorite;
   
   _subtitle(Currency currency) {
     if(currency.code == currency.symbol) {
@@ -40,7 +38,7 @@ class CurrencyTile extends StatelessWidget {
         leading: CurrencyFlag(currency: currency),
         title: Text(currency.name),
         subtitle: Text(_subtitle(currency)),
-        trailing: favorite ? Icon(Icons.star) : null,
+        trailing: currency.isFavorite ? Icon(Icons.star) : null,
       ),
     );
   }

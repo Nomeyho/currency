@@ -31,5 +31,4 @@ class CurrencyService {
     return Currencies.fromJson(json);
   }
 
-
 }
