@@ -1,12 +1,15 @@
 import 'package:app/models/currency.dart';
 import 'package:app/services/currency_service.dart';
+import 'package:app/services/preferences_service.dart';
 import 'package:flutter/material.dart';
 
 class AppState with ChangeNotifier {
   final _ratesService = CurrencyService();
+  final _preferencesService = new PreferencesService();
 
   /// state
   List<Currency> _currencies = [];
+  List<String> _favorites = [];
   DateTime _date;
   Currency _from;
   Currency _to;
@@ -17,6 +20,8 @@ class AppState with ChangeNotifier {
   List<Currency> filteredCurrencies(String filter) {
     return currencies.where((c) => c.match(filter)).toList();
   }
+
+  List<String> get favorites => _favorites;
 
   Future<void> loadCurrencies() async {
     _loading = true;
@@ -33,6 +38,7 @@ class AppState with ChangeNotifier {
       _date = data.date;
     }
 
+    _favorites = await _preferencesService.getFavorites();
     _from = _currencies.firstWhere((c) => c.code == 'EUR'); // TODO use preferences to save last two selected
     _to = _currencies.firstWhere((c) => c.code == 'USD');
     _loading = false;
@@ -52,6 +58,7 @@ class AppState with ChangeNotifier {
 
   set from(Currency from) {
     _from = from;
+    _preferencesService.addToFavorites(from.code).then((f) => _favorites = f);
     notifyListeners();
   }
 
@@ -59,6 +66,7 @@ class AppState with ChangeNotifier {
 
   set to(Currency to) {
     _to = to;
+    _preferencesService.addToFavorites(to.code).then((f) => _favorites = f);
     notifyListeners();
   }
 

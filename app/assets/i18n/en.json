@@ -1,5 +1,8 @@
 {
   "home_screen.title": "Converter",
+  "home_screen.updated-today": "Updated today",
+  "home_screen.updated-day": "Updated 1 day ago",
+  "home_screen.updated-days": "Updated % days ago",
 
   "search_input.search": "Search",
   "settings_screen.title": "Settings",
@@ -7,5 +10,5 @@
   "settings_screen.theme": "Theme",
   "settings_screen.version": "Version",
 
-  "currency_selector_screen.title": "Currency"
+  "currency_selector_screen.title": "Currencies"
 }

@@ -18,12 +18,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _focusNode1 = new FocusNode();
-  final _focusNode2 = new FocusNode();
+  final _focusNode1 = FocusNode();
+  final _focusNode2 = FocusNode();
   final _inputController1 =
-      new MoneyMaskedTextController(precision: 2, thousandSeparator: ' ');
+      MoneyMaskedTextController(precision: 2, thousandSeparator: ' ');
   final _inputController2 =
-      new MoneyMaskedTextController(precision: 2, thousandSeparator: ' ');
+      MoneyMaskedTextController(precision: 2, thousandSeparator: ' ');
 
   @override
   void initState() {
@@ -44,6 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
       final state = Provider.of<AppState>(context);
       _inputController1.updateValue(raw / state.rate);
     }
+  }
+
+  void _swap() {
+    final state = Provider.of<AppState>(context);
+    final tmp = _inputController2.numberValue;
+    _inputController2.updateValue(_inputController1.numberValue);
+    _inputController1.updateValue(tmp);
+    state.invert();
   }
 
   _buildCurrencyInput1(AppState state) {
@@ -112,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Expanded(child: _buildCurrencyInput2(state)),
                             ],
                           ),
-                          RateIndicator(onPress: state.invert)
+                          RateIndicator(onTap: _swap)
                         ],
                       ),
               ),

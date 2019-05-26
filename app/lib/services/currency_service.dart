@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class CurrencyService {
   static String url = 'https://s3-eu-west-1.amazonaws.com/nomeyho-currency-prod/currencies.json';
   static String defaultCurrenciesFile = 'assets/default_currencies.json';
-  static Map headers = {'Content-Type': 'application/json;chartset=utf-8'};
+  static Map<String, String> headers = {'Content-Type': 'application/json; charset=utf-8'};
 
   Future<Currencies> getLocalCurrencies() async {
     print('Loading currencies from "$defaultCurrenciesFile" (default)');
@@ -27,6 +27,9 @@ class CurrencyService {
       throw Exception("Failed to fetch remote currencies");
     }
 
-    return Currencies.fromJson(jsonDecode(response.body));
+    final json = jsonDecode(response.body);
+    return Currencies.fromJson(json);
   }
+
+
 }

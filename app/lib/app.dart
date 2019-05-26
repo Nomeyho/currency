@@ -13,10 +13,10 @@ import 'i18n/languages.dart';
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'Currency',
-      theme: new ThemeData(),
-      home: new HomeScreen(),
+      theme: ThemeData(),
+      home: HomeScreen(),
       localizationsDelegates: [
         AppI18nDelegate(),
         GlobalMaterialLocalizations.delegate,

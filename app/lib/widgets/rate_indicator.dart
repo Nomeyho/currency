@@ -1,14 +1,23 @@
+import 'package:app/models/currency.dart';
 import 'package:app/state/app_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO onclick reverse
 class RateIndicator extends StatelessWidget {
+  final onTap;
 
-  final onPress;
+  RateIndicator({@required this.onTap});
 
-  RateIndicator({ @required this.onPress });
+  _formatRate(Currency from, Currency to) {
+    final rate = from.rate / to.rate;
+
+    if(rate.truncateToDouble() == rate) {
+      return rate.toStringAsFixed(0);
+    } else {
+      return rate.toStringAsFixed(3);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +32,13 @@ class RateIndicator extends StatelessWidget {
           horizontal: 16,
           vertical: 2,
         ),
-        decoration: new BoxDecoration(
-          border: new Border.all(color: Colors.grey[400]),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[400]),
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(25)),
         ),
-        child: InkWell(
-          onTap: onPress,
+        child: GestureDetector(
+          onTap: onTap,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -42,7 +51,7 @@ class RateIndicator extends StatelessWidget {
                 child: Icon(Icons.swap_horiz, size: 36),
               ),
               Text(
-                '${to.symbol} ${(from.rate / to.rate).toStringAsFixed(3)}',
+                '${to.symbol} ${_formatRate(from, to)}',
                 style: titleStyle,
               )
             ],
