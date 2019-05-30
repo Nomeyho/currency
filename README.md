@@ -1,7 +1,7 @@
 # Currency
 
 <p align="center">
-    <img width="350" alt="architecture" src="https://github.com/Nomeyho/currency/raw/master/app/assets/architecture.png" />
+    <img width="600" alt="architecture" src="https://github.com/Nomeyho/currency/raw/master/app/assets/architecture.png" />
 </p>
 
 ## Mobile application
