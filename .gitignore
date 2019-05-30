@@ -7,3 +7,10 @@ jspm_packages
 
 # Other
 *.env
+.DS_Store
+.idea/currency.iml
+.idea/encodings.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+app/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings

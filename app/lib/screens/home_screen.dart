@@ -30,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _inputController1.afterChange = onInputChange1;
     _inputController2.afterChange = onInputChange2;
-    _inputController1.updateValue(1);
   }
 
   void onInputChange1(String masked, double raw) {

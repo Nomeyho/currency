@@ -1,5 +1,8 @@
 # Currency
 
+## Mobile application
+Flutter mobile application to convert currencies using up-to-date rates.
+
 ## Backend
 Save the daily currency rates in S3 and notify by email using a serverless architecture.
 
@@ -28,14 +31,7 @@ npm run deploy-prod
 npm run deploy-dev
 ```
 
-## Mobile application
-Flutter mobile application to convert currencies using up-to-date rates.
-
 ## Roadmap
 * Theming
-* Favorite & recently used currencies
 * Add support for crypto-currencies
 * Save historical data (e.g. `/year/month/day.json`)
-
-## Resources
-https://gist.github.com/Fluidbyte/2973986
