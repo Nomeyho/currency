@@ -1,6 +1,6 @@
 # Currency
 
-## Currency backend
+## Backend
 Save the daily currency rates in S3 and notify by email using a serverless architecture.
 
 ### Technical stack
@@ -29,7 +29,7 @@ npm run deploy-dev
 ```
 
 ## Mobile application
-Flutter mobile application to convert correncies using up-to-date rates.
+Flutter mobile application to convert currencies using up-to-date rates.
 
 ## Roadmap
 * Theming

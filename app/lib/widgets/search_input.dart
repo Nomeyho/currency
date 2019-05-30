@@ -19,7 +19,6 @@ class SearchInput extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(12),
       child: TextField(
-        autofocus: true,
         onChanged: onSearch,
         style: TextStyle(fontSize: 16),
         decoration: InputDecoration(

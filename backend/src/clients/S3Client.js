@@ -19,7 +19,7 @@ class S3Client {
           : JSON.stringify(content, null, 2),
         Bucket: this.bucketName,
         Key: filename,
-        ContentType: 'application/json'
+        ContentType: 'application/json; charset=utf-8'
       }).promise();
       console.log(`'${this.key(filename)} updated with ETag ${ETag}`);
       return this.url(filename);

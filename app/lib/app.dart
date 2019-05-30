@@ -15,6 +15,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         canvasColor: Colors.grey[50],
         primaryColor: Color(0xFF8e2d3c),
+        accentColor: Color(0xFF8e2d3c)
       ),
       home: HomeScreen(),
       localizationsDelegates: [
