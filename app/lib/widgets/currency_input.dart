@@ -22,7 +22,7 @@ class CurrencyInput extends StatelessWidget {
     );
   }
 
-  _buildInput() {
+  _buildInput(BuildContext context) {
     return TextField(
       controller: controller,
       focusNode: focusNode,
@@ -31,9 +31,9 @@ class CurrencyInput extends StatelessWidget {
       keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true),
       textAlign: TextAlign.end,
       cursorColor: Colors.black,
-      style: TextStyle(color: Colors.blue, fontSize: 30),
+      style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 30),
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(40.0),
+        contentPadding: EdgeInsets.fromLTRB(0, 0, 20, 0),
         border: InputBorder.none,
         alignLabelWithHint: false,
       ),
@@ -65,7 +65,7 @@ class CurrencyInput extends StatelessWidget {
       children: <Widget>[
         _buildButton(context),
         Flexible(
-          child: _buildInput(),
+          child: _buildInput(context),
         )
       ],
     );

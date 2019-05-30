@@ -12,7 +12,7 @@ class RateIndicator extends StatelessWidget {
   _formatRate(Currency from, Currency to) {
     final rate = from.rate / to.rate;
 
-    if(rate.truncateToDouble() == rate) {
+    if (rate.truncateToDouble() == rate) {
       return rate.toStringAsFixed(0);
     } else {
       return rate.toStringAsFixed(3);
@@ -24,38 +24,40 @@ class RateIndicator extends StatelessWidget {
     final state = Provider.of<AppState>(context);
     final from = state.from;
     final to = state.to;
-    final titleStyle = Theme.of(context).textTheme.title;
+    final theme = Theme.of(context);
 
     return Center(
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 2,
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey[400]),
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(25)),
-        ),
-        child: GestureDetector(
-          onTap: onTap,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                '${from.symbol} 1',
-                style: titleStyle,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4),
-                child: Icon(Icons.swap_horiz, size: 36),
-              ),
-              Text(
-                '${to.symbol} ${_formatRate(from, to)}',
-                style: titleStyle,
-              )
-            ],
+      child: FlatButton(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: Colors.grey[400],
+            width: 1,
+            style: BorderStyle.solid,
           ),
+          borderRadius: BorderRadius.circular(36),
+        ),
+        onPressed: onTap,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              '${from.symbol} 1',
+              style: theme.textTheme.title,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4),
+              child: Icon(
+                Icons.swap_horiz,
+                size: 36,
+                color: Colors.grey[500],
+              ),
+            ),
+            Text(
+              '${to.symbol} ${_formatRate(from, to)}',
+              style: theme.textTheme.title,
+            )
+          ],
         ),
       ),
     );

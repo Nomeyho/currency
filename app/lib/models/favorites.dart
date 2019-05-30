@@ -1,5 +1,4 @@
 class Favorites {
-  
   List<String> _codeList; // ordered
   Set<String> _codeSet;
 
@@ -18,12 +17,11 @@ class Favorites {
   }
 
   void add(String code) {
-    if(_codeSet.length >= 5) {
-      if(_codeSet.contains(code)) {
+    if (_codeSet.length >= 5) {
+      if (_codeSet.contains(code)) {
         _codeSet.remove(code);
         _codeList.remove(code);
       } else {
-        // remove last
         _codeList.removeLast();
       }
     }

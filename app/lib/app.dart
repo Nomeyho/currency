@@ -6,16 +6,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'i18n/app_i18n_delegate.dart';
 import 'i18n/languages.dart';
 
-// TODO: loading currency issue
-// TODO refactor style
-// TODO splash screen
-
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Currency',
-      theme: ThemeData(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        canvasColor: Colors.grey[50],
+        primaryColor: Color(0xFF8e2d3c),
+      ),
       home: HomeScreen(),
       localizationsDelegates: [
         AppI18nDelegate(),
