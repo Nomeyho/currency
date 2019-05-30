@@ -1,19 +1,12 @@
-# Currency mobile application
-A mobile application to convert amounts between different currencies,
-with regularly updated rates.
+# Mobile application
 
 ## Android
 
 ### Build APK
-From `/`` run:
+From `/` run:
 
-``
-flutter build apk`
-``
+```
+flutter build apk
+```
 
 The APK is generated in `/build/app/outputs/apk/release/`.
-
-### Install APK
-```
-flutter install
-```
